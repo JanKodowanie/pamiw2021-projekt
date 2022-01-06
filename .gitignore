@@ -1,0 +1,10 @@
+# python
+.venv/
+__pycache__/
+**/*.env
+
+# db
+db.sqlite*
+
+# media files
+media/
