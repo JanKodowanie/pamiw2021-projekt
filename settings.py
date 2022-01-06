@@ -14,7 +14,7 @@ logger = logging.getLogger('uvicorn')
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 MODEL_PATHS = (
-    # "core.users.models",
+    # "core.accounts.models",
     # "core.blog.models"
 )
 

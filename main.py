@@ -4,10 +4,11 @@ import uvicorn
 import settings
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from core.users.router import router as users_router
 
 
 app = FastAPI()
-# app.include_router(users_router)
+app.include_router(users_router)
 # app.include_router(blog_router)
 
 
