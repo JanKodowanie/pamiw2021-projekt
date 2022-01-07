@@ -14,8 +14,8 @@ logger = logging.getLogger('uvicorn')
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 MODEL_PATHS = (
-    # "core.accounts.models",
-    # "core.blog.models"
+    "core.users.models",
+    "core.blog.models"
 )
 
 def create_db_connection(app) -> None:
@@ -36,6 +36,18 @@ ALGORITHM = os.getenv('ALGORITHM')
 ACCESS_TOKEN_EXPIRE_MINUTES = 600
 
 
+# web connection settings
+FRONTEND_URL = os.getenv('FRONTEND_URL')
+BACKEND_DOMAIN = os.getenv('BACKEND_DOMAIN')
+CORS_ALLOWED_ORIGINS = [
+    FRONTEND_URL
+]
+
+CORS_ALLOWED_METHODS = ["*"]
+CORS_ALLOWED_HEADERS = ["*"]
+ALLOWED_HOSTS = [BACKEND_DOMAIN]
+
+
 # media settings
 MEDIA_DIR = os.getenv('MEDIA_DIR')
 MEDIA_ROOT = '/media'
@@ -44,6 +56,6 @@ MEDIA_ROOT = '/media'
 # sendgrid settings
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 MAIN_EMAIL_TEMPLATE = os.getenv('MAIN_EMAIL_TEMPLATE')
-DOMAIN = "https://microsociety.pl"
+
 NO_REPLY_EMAIL = "no-reply@microsociety.pl"
-PASS_RESET_ENDPOINT = 'accounts/passwordReset'
+PASS_RESET_ENDPOINT = "accounts/passwordReset"

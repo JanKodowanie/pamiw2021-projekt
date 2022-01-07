@@ -4,7 +4,7 @@ from .models import *
 from .exceptions import *
 from .schemas import *
 from .enums import UserRole
-from .hash import Hash
+from .utils.hash import Hash
 from uuid import UUID
 from tortoise.exceptions import DoesNotExist
 from common.emails.email_manager import EmailManager
@@ -87,10 +87,10 @@ class UserService:
             user.username = data.username
         if data.email:
             user.email = data.email
-        if data.gender:
+        if data.gender != user.gender:
             user.gender = data.gender
-        if data.bio:
-            user.gender = data.gender
+        if data.bio != user.bio:
+            user.bio = data.bio
             
         await user.save()            
         return user

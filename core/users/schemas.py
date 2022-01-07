@@ -16,10 +16,10 @@ class UserCreateSchema(pydantic.BaseModel):
     
 
 class UserEditSchema(pydantic.BaseModel):
-    username: Optional[pydantic.constr(strip_whitespace=True, min_length=6, max_length=20)]
-    bio: Optional[pydantic.constr(strip_whitespace=True, max_length=300)]
-    email: Optional[pydantic.EmailStr]
-    gender: Optional[UserGender]
+    username: pydantic.constr(strip_whitespace=True, min_length=6, max_length=20)
+    bio: Optional[pydantic.constr(strip_whitespace=True, min_length=1, max_length=300)]
+    email: pydantic.EmailStr
+    gender: UserGender
     
     _username_is_alphanumeric: classmethod = alphanumeric_validator("username")
     
@@ -31,7 +31,7 @@ class UserGetListSchema(pydantic.BaseModel):
         
         
 class UserGetProfileSchema(UserGetListSchema):
-    bio: str
+    bio: Optional[str]
     date_joined: datetime
     gender: UserGender
     

@@ -3,8 +3,9 @@ from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from .schemas import *
 from .exceptions import *
 from .services import *
-from .auth import AuthHandler
-from common.permissions import *
+from .auth.middleware import AuthHandler
+from .auth.exceptions import InvalidCredentials
+from core.users.auth.permissions import *
 from common.responses import *
 from typing import List
 from uuid import UUID

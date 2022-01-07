@@ -2,16 +2,17 @@ import settings
 from fastapi import Depends, HTTPException
 from datetime import datetime, timedelta, timezone
 from jose import jwt
-from .schemas import *
 from .exceptions import *
-from .services import UserService
-from .models import User
-from .schemas import UserDataSchema
-from .hash import Hash
+from ..schemas import *
+from ..exceptions import AccountNotFound
+from ..services import UserService
+from ..models import User
+from ..schemas import UserDataSchema
+from ..utils.hash import Hash
 from fastapi.security import OAuth2PasswordBearer
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user-management/login")
 
 
 class TokenManager:
@@ -61,7 +62,7 @@ class AuthHandler:
             raise InvalidCredentials()
         
         access_token, data = TokenManager().create_token(user)
-        token_type = 'bearer'
+        token_type = 'Bearer'
         
         return TokenSchema(access_token=access_token, token_type=token_type, data=data)
     

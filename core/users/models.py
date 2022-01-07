@@ -14,11 +14,11 @@ class User(models.Model):
     role = fields.CharEnumField(enum_type=UserRole, default=UserRole.STANDARD)
     
     class Meta:
-        ordering = ["-date_joined"]
+        ordering = ["username"]
         
         
 class PasswordResetCode(models.Model):
     code = fields.UUIDField(pk=True)
-    user = fields.OneToOneField('models.Account', related_name='reset_code')
+    user = fields.OneToOneField('models.User', related_name='reset_code')
     exp = fields.DatetimeField(
         default=datetime.now(timezone.utc) + timedelta(hours=24))
