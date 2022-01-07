@@ -13,14 +13,16 @@ async def feed_db():
         'gender': UserGender.MALE,
         'role': UserRole.MODERATOR
     }
-    user = await User.create(**test_moderator)
-    tag = await Tag.create(name="hello", popularity=1)
     
-    test_post = {
-        'creator': user,
-        'content': 'Cześć wszystkim! Miło mi powitać was w serwisie MicroSociety! #hello'
-    }
-    
-    post = await Post.create(**test_post)
-    await post.tags.add(tag)
-    await post.save()
+    if not await User.filter(username='moderator').exists():
+        user = await User.create(**test_moderator)
+        tag = await Tag.create(name="hello", popularity=1)
+        
+        test_post = {
+            'creator': user,
+            'content': 'Cześć wszystkim! Miło mi powitać was w serwisie MicroSociety! #hello'
+        }
+        
+        post = await Post.create(**test_post)
+        await post.tags.add(tag)
+        await post.save()
