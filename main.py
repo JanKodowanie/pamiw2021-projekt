@@ -2,6 +2,7 @@ import os
 import sys
 import uvicorn
 import settings
+from feed_db import feed_db
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,7 +23,6 @@ app.add_middleware(
     TrustedHostMiddleware, allowed_hosts=settings.ALLOWED_HOSTS
 )
 
-
 app.include_router(users_router)
 app.include_router(blog_router)
 
@@ -30,7 +30,7 @@ app.include_router(blog_router)
 try:        
     os.mkdir(settings.MEDIA_DIR)
 except Exception:
-    settings.logger.info("Media directory already exists. Proceeding.")
+    settings.logger.info("Media directory already exists")
 
 app.mount(settings.MEDIA_ROOT, StaticFiles(directory=settings.MEDIA_DIR), name="media")
 
@@ -41,6 +41,15 @@ except Exception as e:
     settings.logger.error("Couldn't connect to db")
     settings.logger.error(e)
     sys.exit(-1)
+    
+    
+@app.on_event('startup')
+async def startup():
+    try:
+        await feed_db()
+    except Exception as e:
+        settings.logger.error("Couldn't create test db data")
+        settings.logger.error(e)
 
 
 if __name__ == "__main__":

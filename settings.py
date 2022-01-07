@@ -15,16 +15,24 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 
 MODEL_PATHS = (
     "core.users.models",
-    "core.blog.models"
+    "core.blog.models",
+    "aerich.models"
 )
+
+DB_CONFIG = {
+    "connections": {"default": DATABASE_URL},
+    "apps": {
+        "models": {
+            "models": MODEL_PATHS,
+            "default_connection": "default"
+        },
+    },
+}
 
 def create_db_connection(app) -> None:
     register_tortoise(
         app,
-        db_url=DATABASE_URL,
-        modules={'models': MODEL_PATHS},
-        generate_schemas=True,
-        add_exception_handlers=True
+        DB_CONFIG
     )
 
 Tortoise.init_models(MODEL_PATHS, 'models')
