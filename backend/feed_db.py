@@ -54,7 +54,7 @@ async def feed_db():
         
         test_post2 = {
             'creator': user,
-            'content': 'Szukam dobrej książki do nauki Pythona. Jakieś propozycje? #programowanie #python'
+            'content': 'Szukam dobrej książki do nauki Pythona.\nJakieś propozycje?\n#programowanie #python'
         }
         
         post2 = await Post.create(**test_post2)

@@ -5,7 +5,6 @@ window.onload = function () {
 
 onLogoutClicked = async function (e) {
     e.preventDefault()
-    console.log("Dupa")
     await fetch('/logout', {method: 'GET'})
     window.location.href = "/"
 }

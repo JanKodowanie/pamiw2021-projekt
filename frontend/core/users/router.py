@@ -39,9 +39,8 @@ async def login_user(
     async with httpx.AsyncClient() as client:
         backend_response = await client.post(f'{settings.BACKEND_URL}user-management/login', data=login_data.dict())
         response_data = backend_response.json()
-        if backend_response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
-            settings.logger.info(response_data['detail'])
-            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
+        if backend_response.status_code == status.HTTP_401_UNAUTHORIZED:
+            raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail=response_data['detail'])
     
     response_data = LoginResponse(**response_data)
     response.set_cookie(key="token", value=f"{response_data.token_type} {response_data.access_token}", httponly=True)

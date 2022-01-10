@@ -22,11 +22,11 @@ templates = Jinja2Templates(directory="templates")
 
 @router.get("/", response_class=HTMLResponse)
 async def get_blog_page(request: Request):
-    user = {
-        "username": "Janek",
-        "role": "standard"    
-    }
-    # user = None
+    # user = {
+    #     "username": "Janek",
+    #     "role": "standard"    
+    # }
+    user = None
     
     async with httpx.AsyncClient() as client:
         response = await client.get(f'{settings.BACKEND_URL}blog/posts')

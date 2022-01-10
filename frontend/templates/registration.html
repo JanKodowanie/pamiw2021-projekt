@@ -5,19 +5,12 @@
     <script src="/static/registration.js"></script>
 {% endblock head %}
 {% block content %}
-    <section id="registration-view">
+    <section class="form-with-desc">
         <div class="greetings">
-            <h1>Microsociety to najlepsze źródło informacji i wiedzy!</h1>
-            <p>Dołącz do nas już dziś!</p>
+            <h1>Rejestracja</h1>
+            <p>Microsociety to najlepsze źródło informacji w internecie.<br>Dołącz do nas już dziś!</p>
         </div>
-        <ul class="error-list">
-            <li class="error-mes-hidden" id="username-error"></li>
-            <li class="error-mes-hidden" id="email-error"></li>
-            <li class="error-mes-hidden" id="password-error"></li>
-            <li class="error-mes-hidden" id="password2-error"></li>
-            <li class="error-mes-hidden" id="gender-error"></li>
-        </ul>
-        <form class="registration-form" id="regform">
+        <form class="auth-form" id="regform">
             <ul class="form-list">
                 <li>
                     <input type="text" id="username" name="username" placeholder="Nazwa użytkownika">
@@ -44,5 +37,12 @@
                 </li> 
             </ul>
         </form>
+        <ul class="error-list">
+            <li class="error-mes-hidden" id="username-error"></li>
+            <li class="error-mes-hidden" id="email-error"></li>
+            <li class="error-mes-hidden" id="password-error"></li>
+            <li class="error-mes-hidden" id="password2-error"></li>
+            <li class="error-mes-hidden" id="gender-error"></li>
+        </ul>
     </section>
 {% endblock content %}
