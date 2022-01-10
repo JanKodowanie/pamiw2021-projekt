@@ -110,9 +110,9 @@ class UserService:
     def _compose_credentials_taken_error(self, fields: List[str]):
         error_msg = []
         if 'email' in fields:
-            error_msg.append('Email already taken')
+            error_msg.append('Założono już konto na ten adres email.')
         if 'username' in fields:
-            error_msg.append('Username already taken')
+            error_msg.append('Nazwa użytkownika jest zajęta.')
         
         return self._compose_error_messages(fields, error_msg)
             

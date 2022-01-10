@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Blog{% endblock title %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+{% block content %}
+    {% if user %}
+    <div>
+        <h1 class="section-header1">Witaj, {{ user.username|e }}!</h1>
+    </div>
+    {% endif %}
+    <div>
+        <h2 class="section-header3">Oto najnowsze posty:</h2>
+        <div class="dashboard-table">
+            {% for post in posts %}
+                <div class="note">
+                    <div class="note-data">
+                        <div class="note-title">{{ post.creator.username|e }}</div>
+                        <div class="note-text">{{ post.content|e }}</div>
+                        <div><span>Tagi: </span>
+                            {% for tag in post.tags %}
+                                {% if not loop.last %}{{ tag.name }}, {% else %} {{ tag.name }}{% endif %}
+                            {% endfor %}
+                        </div> 
+                        <div><span>Data publikacji: </span>{{ post.date_created.strftime('%d-%m-%Y %H:%M')|e }}</div>
+                    </div>    
+                </div>
+            {% endfor %}
+        </div>
+    </div>   
+{% endblock content %}

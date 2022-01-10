@@ -1,5 +1,6 @@
 import pydantic
 from .models import *
+from core.users.schemas import UserGetListSchema
 from typing import Optional, List
 from datetime import datetime
 from uuid import UUID
@@ -14,7 +15,7 @@ class TagGetBasicSchema(pydantic.BaseModel):
 
 
 class TagGetFullSchema(TagGetBasicSchema):
-    name: pydantic.constr(strip_whitespace=True, max_length=30)
+    name: str
     date_created: datetime
     popularity: int
     
@@ -38,7 +39,7 @@ class CommentGetSchema(pydantic.BaseModel):
     id: int
     post_id: int
     content: str
-    creator_id: UUID
+    creator: UserGetListSchema
     date_created: datetime
     
     class Config:
@@ -51,7 +52,7 @@ class PostCreateSchema(pydantic.BaseModel):
   
 class PostGetListSchema(PydanticModel):
     id: int
-    creator_id: UUID
+    creator: UserGetListSchema
     content: str 
     picture_url: Optional[str]
     date_created: datetime

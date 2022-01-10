@@ -28,9 +28,6 @@ class UserGetListSchema(pydantic.BaseModel):
     id: UUID
     username: str
     role: UserRole
-    
-    class Config:
-        orm_mode = True
         
         
 class UserGetProfileSchema(UserGetListSchema):
@@ -43,6 +40,11 @@ class LoginResponse(pydantic.BaseModel):
     access_token: str
     token_type: str
     user: UserGetListSchema
+    
+    
+class LoginRequest(pydantic.BaseModel):
+    username: str
+    password: str
     
 
 class PassResetCodeRequestSchema(pydantic.BaseModel):

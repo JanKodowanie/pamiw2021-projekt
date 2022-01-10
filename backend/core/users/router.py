@@ -130,7 +130,7 @@ async def delete_user_as_moderator(
 
 @router.post(
     '/login',
-    response_model=TokenSchema,
+    response_model=LoginResponse,
     status_code=status.HTTP_201_CREATED
 )
 async def login(

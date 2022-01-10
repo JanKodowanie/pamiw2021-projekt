@@ -1,0 +1,342 @@
+
+html, body {
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgb(47, 47, 47);
+    color: rgb(255, 255, 255);
+}
+
+h1 {
+    font-size: calc(14px + 0.8vw);
+    font-weight: 700;
+    margin: 0;
+    text-align: left;
+}
+
+.note {
+    display: flex;
+    margin-bottom: 2%;
+    color: rgb(255, 255, 255);
+}
+
+.note-data {
+    font-size: calc(8px + 0.5vw);
+    padding: calc(5px + 1%);
+    background-color: rgb(21, 21, 21);
+    border: thin solid;
+    border-color: rgb(70, 69, 69);
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.note-title {
+    font-size: calc(10px + 0.5vw);
+    font-weight: 700;
+}
+
+.note-text {
+    margin: 1% 0;
+    text-align: justify;
+}
+
+.note-data span:not(.parcel-id) {
+    color: crimson;
+    font-weight: 700;
+}
+
+.section-header1 {
+    margin-top: 3%;
+}
+
+.section-header2 {
+    font-size: calc(10px + 0.6vw);
+    font-weight: 700;
+    margin: 2% 0;
+    text-align: left;
+}
+
+.section-header3 {
+    font-size: calc(10px + 0.6vw);
+    font-weight: 700;
+    margin-top: 2%;
+    text-align: left;
+}
+
+.button1 {
+    font-size: calc(8px + 0.4vw);
+    border: none;
+    padding: calc(5px + 2%);
+    color: white;
+    text-decoration: none;
+    background-color: crimson;
+}
+
+.button1:hover {
+    background-color: rgb(184, 15, 49);
+}
+
+.button2 {
+    margin-top: 1%;
+    font-size: calc(8px + 0.3vw);
+    padding: calc(3px + 0.5%);
+    border: none;
+    color: white;
+    text-decoration: none;
+    background-color: crimson;
+}
+
+.button2:hover {
+    background-color: rgb(184, 15, 49);
+}
+
+.button-wrapper1 {
+    padding: calc(18px + 2%) calc(10px + 1%);
+}
+
+
+#author {
+    color: white;
+    margin: 0;
+    margin-top: 15%;
+    font-size: calc(10px + 0.6vw);
+    font-weight: 700;
+}
+
+#description {
+    font-size: calc(8px + 0.4vw);
+    margin-top: 12%;
+    margin-bottom: 15.5%;
+}
+
+nav {
+    font-weight: 400;
+    font-size: calc(8px + 0.5vw);
+    padding: 0.3vw 0.5vw;
+    background-color: rgba(0, 0, 0, 0.801);
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    margin-right: 1.2%;
+}
+
+a.nav-item:hover {
+    color: #b5dcff;
+} 
+
+header {
+    margin-top: 3%;
+    background-color: #b5dcff;
+    display: flex;
+    padding: 3% 5%;
+    padding-left: 8%;
+    text-align: justify;
+    justify-content: space-between;
+}
+
+.intro {
+    margin-right: 5%;
+}
+
+#logo {
+    width: 60%;
+}
+
+.content {
+    margin: 0 20%; 
+}
+
+.dashboard-table {
+    padding: 2.5% 0;
+}
+
+.middle {
+    margin-top: 3%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: space-between
+}
+
+#middle-image-1 {
+    width: 19.5%;
+}
+
+#middle-image-2 {
+    width: 52%;
+}
+
+#middle-image-3 {
+    width: 23.415%;
+}
+
+#repo-link {
+    color: white;
+    text-decoration: none;
+    margin-left: 1.2%;
+}
+
+#repo-link:hover {
+    color: #b5dcff;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #b5dcff;
+    background-color: rgb(0, 0, 0);
+    font-weight: 400;
+    font-size: calc(8px + 0.5vw);
+    padding: 0.3vw 0.5vw;
+}
+
+#registration-view {
+    margin: 5% 0%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#login-view {
+    margin: 5% 0%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.greetings {
+    margin: 0;
+    font-size: calc(8px + 0.5vw);
+    width: 32vw; 
+    text-align: justify;
+}
+
+.new-note-view {
+    margin: 5% 0%;
+}
+
+.new-note-form-content {
+    list-style: none;
+    padding: 0;
+}
+
+.new-note-form-content li{
+    margin: 0.5vw 0;
+}
+
+.new-note-form-content li input[type=text] {
+    width: 100%;
+    height: 2vh;
+}
+
+.new-note-form-content li input[type=password] {
+    width: 30%;
+    height: 2vh;
+}
+
+.new-note-form-content li input[type=email] {
+    width: 30%;
+    height: 2vh;
+}
+
+.new-note-form-content li textarea {
+    width: 100%;
+    height: 20vh;
+    resize: none;
+}
+
+.new-note-form-content li button[type=submit] {
+    width: 10%;
+    margin-left: 45%;
+}
+
+.receivers-selection {
+    display: flex;
+    width: 100%;
+}
+
+.receivers-selection div {
+    margin-right: 2%;
+}
+
+.receivers-list {
+    display: flex;
+    width: 80%;
+    visibility: hidden;
+}
+
+.receivers-list * {
+    margin: 0;
+    margin-right: 7%;
+}
+
+.receivers-list select{
+    width: 15%;
+}
+
+.receivers-list button{
+    width: 10%;
+}
+
+.receivers-list p{
+    width: 60%;
+}
+
+.form-list {
+    list-style: none;
+    margin: 0.1vw;
+}
+
+.form-list li {
+    margin: 0.5vw;
+}
+
+.form-list input:not([type=radio]) {
+    font-size: calc(8px + 0.5vw); 
+    width: 14.5vw; 
+}
+
+.form-list input[type=file] {
+    font-size: 0.6vw;
+    margin-left: 0.3vw; 
+}
+
+.form-list input[type=radio] {
+    font-size: 0.6vw;
+}
+
+.form-list select {
+    font-size: 0.7vw;
+}
+
+.form-list label {
+    font-size: 0.6vw;
+    margin-right: 4%;  
+}
+
+.error-list {
+    width: 12vw; 
+    list-style: none;
+    margin: 0.05vw;
+}
+
+.error-list li {
+    font-size: calc(8px + 0.5vw);
+    margin: 0.6vw;
+    color: crimson;
+    display: block;
+}
+
+.form-list label {
+    font-size: calc(8px + 0.5vw);
+}
+
+.error-mes-hidden {
+    visibility: hidden;
+}
+
+.error-mes {
+    visibility: visible;
+}

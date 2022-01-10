@@ -52,7 +52,7 @@ class TokenManager:
 
 class AuthHandler:
     
-    async def authenticate_user(self, email, password) -> TokenSchema:
+    async def authenticate_user(self, email, password) -> LoginResponse:
         try:
             user = await UserService().get_by_email(email)
         except AccountNotFound:
@@ -64,7 +64,7 @@ class AuthHandler:
         access_token, data = TokenManager().create_token(user)
         token_type = 'Bearer'
         
-        return TokenSchema(access_token=access_token, token_type=token_type, data=data)
+        return LoginResponse(access_token=access_token, token_type=token_type, user=user)
     
     @classmethod
     async def get_user_from_token(cls, token: str = Depends(oauth2_scheme)) -> User:

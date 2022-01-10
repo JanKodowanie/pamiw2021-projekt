@@ -64,7 +64,7 @@ class PostService:
             await instance.save()
         
         await self.tag_service.create_tags_from_post(instance)
-        await instance.fetch_related('tags', 'comments', 'likes')
+        await instance.fetch_related('creator', 'tags', 'comments', 'likes')
         return instance
     
     async def get(self, id: int) -> Post:
@@ -73,7 +73,7 @@ class PostService:
         except DoesNotExist:
             raise PostNotFound()
         
-        await instance.fetch_related('tags', 'comments', 'likes')
+        await instance.fetch_related('creator', 'tags', 'comments', 'likes')
         return instance
 
     async def edit(self, instance: Post, 
@@ -97,7 +97,7 @@ class PostService:
             await instance.save()
             await self.tag_service.create_tags_from_post(instance)
         
-        await instance.fetch_related('tags', 'comments', 'likes')
+        await instance.fetch_related('creator', 'tags', 'comments', 'likes')
         return instance
     
     async def delete(self, instance: Post):
@@ -106,9 +106,9 @@ class PostService:
 
     async def get_list(self, filters: dict = None) -> List[Post]:
         if not filters:
-            posts = await Post.all().prefetch_related('tags', 'likes')
+            posts = await Post.all().prefetch_related('creator', 'tags', 'likes')
         else:
-            posts = await Post.filter(**filters).prefetch_related('tags', 'likes')
+            posts = await Post.filter(**filters).prefetch_related('creator', 'tags', 'likes')
         return posts
     
     async def bulk_delete(self, filters: dict = None):

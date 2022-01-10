@@ -8,3 +8,5 @@ db.sqlite*
 
 # media files
 media/
+
+old_project/

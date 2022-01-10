@@ -13,5 +13,5 @@ class AccessTokenExpired(Exception):
         
 class InvalidCredentials(Exception):
     def __init__(self):
-        self.detail = "Couldn't login with credentials given"
+        self.detail = "Niepoprawne dane logowania."
         super().__init__(self.detail)
