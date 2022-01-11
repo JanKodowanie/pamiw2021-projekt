@@ -1,6 +1,6 @@
 import httpx
 import settings
-from fastapi import APIRouter, HTTPException, File, UploadFile, Form, Request, status, Response
+from fastapi import APIRouter, HTTPException, File, UploadFile, Form, Request, status, Response, Cookie
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from common.responses import *
@@ -83,3 +83,56 @@ async def register_user(
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
         
     return OkResponse(detail="Konto zostało utworzone.")
+
+
+@router.get("/password-reset-code", response_class=HTMLResponse)
+async def get_password_reset_code_form(request: Request):
+    return templates.TemplateResponse("pass_reset_code.html", {"request": request})
+
+
+@router.post(
+    "/password-reset-code", 
+    response_model=OkResponse,
+    status_code=status.HTTP_201_CREATED
+)
+async def get_password_reset_code(
+    email: str = Form(...)
+):
+    msg = "Email z linkiem do resetu hasła został wysłany."
+    try:
+        data = PassResetCodeRequestSchema(email=email)
+    except Exception:
+        return OkResponse(detail=msg)
+        
+    async with httpx.AsyncClient() as client:
+        await client.post(f'{settings.BACKEND_URL}user-management/password-reset-code', json=data.dict())
+        
+    return OkResponse(detail=msg)
+
+
+@router.get("/account/reset-password/{code}", response_class=HTMLResponse)
+async def get_password_reset_form(
+    request: Request,
+    code: UUID
+):
+    return templates.TemplateResponse("pass_reset_form.html", {"request": request})
+
+
+@router.patch(
+    "/account/reset-password/{code}", 
+    response_model=OkResponse,
+    status_code=status.HTTP_200_OK
+)
+async def reset_password(
+    code: UUID,
+    new_pass1: str = Form(...)
+):
+    data = PasswordResetSchema(code=code, password=new_pass1)
+        
+    async with httpx.AsyncClient() as client:
+        response = await client.patch(f'{settings.BACKEND_URL}user-management/user/reset-password', json=data.dict())
+        response_data = response.json()
+        if response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
+            raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
+    
+    return OkResponse(detail=response_data['detail'])

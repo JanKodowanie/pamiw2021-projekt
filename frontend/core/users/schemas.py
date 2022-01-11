@@ -55,14 +55,19 @@ class PasswordResetSchema(pydantic.BaseModel):
     code: UUID
     password: pydantic.constr(strip_whitespace=True, min_length=6, max_length=30)
     
+    def dict(self):
+        return {
+            "code": str(self.code),
+            "password": self.password
+        }
+    
 
 class PasswordResetSuccessResponse(pydantic.BaseModel):
     detail: str = "Password reset successfully"
     
     
-class UserDataSchema(pydantic.BaseModel):
-    sub: UUID
+class UserSession(pydantic.BaseModel):
+    id: UUID
     username: str
     role: UserRole
-    iat: datetime
-    exp: datetime
+    token: str

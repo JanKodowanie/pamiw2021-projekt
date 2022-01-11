@@ -148,19 +148,22 @@ async def login(
 
 @router.post(
     '/password-reset-code',
-    status_code=status.HTTP_204_NO_CONTENT
+    status_code=status.HTTP_200_OK,
+    response_model=OkResponse
 )
 async def get_password_reset_code(
     request: PassResetCodeRequestSchema,
     password_reset_service: PasswordResetService = Depends(),
     user_service: UserService = Depends()
 ):
+    response = OkResponse(detail="Email z linkiem do resetu hasła został wysłany.")
     try:
         user = await user_service.get_by_email(request.email)
     except AccountNotFound:
-        return
+        return response
     
     await password_reset_service.create_code(user)
+    return response
     
     
 @router.patch(

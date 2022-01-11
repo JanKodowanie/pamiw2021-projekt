@@ -13,11 +13,11 @@ class CredentialsAlreadyTaken(Exception):
             
 class PasswordResetCodeExpired(Exception):
     def __init__(self):
-        self.detail = 'Password reset code has expired'
+        self.detail = 'Kod do resetu hasła utracił ważność.'
         super().__init__(self.detail)
         
         
 class PasswordResetCodeNotFound(Exception):
     def __init__(self):
-        self.detail = 'Password reset code not found'
+        self.detail = 'Nie znaleziono kodu do resetu hasła.'
         super().__init__(self.detail)

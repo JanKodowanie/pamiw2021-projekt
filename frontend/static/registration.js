@@ -2,7 +2,7 @@ var passReg = new RegExp("^.{6,30}$")
 var usernameReg = new RegExp("^[a-zA-Z0-9]{6,20}$")
 var usernameMessage = "Nazwa użytkownika musi składać się z 6-20 znaków alfanumerycznych."
 var passwordMessage = "Hasło musi zawierać przynajmniej 6 znaków. Maksymalna długość hasła to 30 znaków."
-var password2Message = "Hasła nie zgadzają się."
+var password2Message = "Hasła nie są zgodne."
 var genderMessage = "Należy wybrać płeć."
 var regForm = null
 

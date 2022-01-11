@@ -37,7 +37,7 @@ class TagService:
         except DoesNotExist:
             raise TagNotFound()
         await tag.fetch_related('posts')
-        return await tag.posts.all().prefetch_related('tags', 'likes')
+        return await tag.posts.all().prefetch_related('tags', 'likes', 'creator')
 
 
 class PostService:

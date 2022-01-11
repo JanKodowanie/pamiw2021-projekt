@@ -55,7 +55,7 @@ class PasswordResetSchema(pydantic.BaseModel):
     
 
 class PasswordResetSuccessResponse(pydantic.BaseModel):
-    detail: str = "Password reset successfully"
+    detail: str = "Hasło zostało zmienione."
     
     
 class UserDataSchema(pydantic.BaseModel):

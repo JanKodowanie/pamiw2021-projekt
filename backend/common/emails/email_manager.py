@@ -35,9 +35,8 @@ class EmailManager:
         template = settings.MAIN_EMAIL_TEMPLATE
         subject = "Microsociety - reset hasła"
         part1 = '''Poniższy link pozwoli Ci na zresetowanie hasła w naszym serwisie:'''
-        part2 = f'{settings.FRONTEND_URL}/{settings.PASS_RESET_ENDPOINT}/{code}'
+        part2 = f'{settings.FRONTEND_URL}{settings.PASS_RESET_ENDPOINT}/{code}'
         part3 = '''Jeśli nie prosiłeś o zresetowanie hasła, zignoruj ten email!'''
         
-    
         self.client.send_email(
             sender_email, email, subject, username, template, part1=part1, part2=part2, part3=part3)

@@ -66,4 +66,4 @@ SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 MAIN_EMAIL_TEMPLATE = os.getenv('MAIN_EMAIL_TEMPLATE')
 
 NO_REPLY_EMAIL = "no-reply@microsociety.pl"
-PASS_RESET_ENDPOINT = "accounts/passwordReset"
+PASS_RESET_ENDPOINT = "account/reset-password"
