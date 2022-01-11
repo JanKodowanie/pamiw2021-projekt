@@ -2,6 +2,7 @@
 {% block title %}Blog{% endblock title %}
 {% block head %}
     {{ super() }}
+    <script src="/static/blog.js"></script>
 {% endblock head %}
 {% block content %}
     <div>
@@ -13,7 +14,7 @@
             {% for post in posts %}
                 <div class="post">
                     <div class="post-data">
-                        <div class="post-creator">{{ post.creator.username|e }}</div>
+                        <div class="post-creator"><a class="link" href="/profile/{{ post.creator.id }}">{{ post.creator.username|e }}</a></div>
                         <div class="post-text">{{ post.content|e }}</div>
                         <div class="post-tags"><span>Tagi: </span>
                             {% for tag in post.tags %}
@@ -21,7 +22,15 @@
                             {% endfor %}
                         </div> 
                         <div class="post-date"><span>Data publikacji: </span>{{ post.date_created.strftime('%d-%m-%Y %H:%M')|e }}</div>
-                    </div>    
+                        {% if user and (post.creator.id == user.id or user.role == "moderator") %}
+                            <form class="buttons" action="/post/{{ post.id }}">
+                                {% if post.creator.id == user.id %}
+                                    <button class="button1 edit-post-button">Edytuj wpis</button>
+                                {% endif %}
+                                <button class="button1 delete-post-button">Usuń wpis</button>
+                            </form>
+                        {% endif %}  
+                    </div>  
                 </div>
             {% endfor %}
         </div>

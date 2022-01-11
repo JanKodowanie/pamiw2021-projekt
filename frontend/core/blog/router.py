@@ -51,3 +51,24 @@ async def get_tag_view(
         posts = PostListSchema(posts=data)
          
     return templates.TemplateResponse("blog_tag.html", {"request": request, "tag": name, "user": user, "posts": posts.dict()})
+
+
+@router.delete(
+    "/post/{id}", 
+    response_model=OkResponse,
+    status_code=status.HTTP_200_OK
+)
+async def delete_post(
+    id: int,
+    user: Optional[UserSession] = Depends(get_user_session)
+):
+    if not user: 
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Nie możesz wykonać tej operacji.")
+    
+    async with httpx.AsyncClient() as client:
+        headers = {'authorization': user.token}
+        response = await client.delete(f'{settings.BACKEND_URL}blog/post/{id}', headers=headers)
+        if response.status_code != status.HTTP_200_OK:
+            raise HTTPException(response.status_code, detail="Nie możesz skasować tego posta.")
+    
+    return OkResponse(detail="Post został usunięty.")

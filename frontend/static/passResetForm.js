@@ -8,12 +8,15 @@ var fieldState = {
     "newPass2": false
 }
 
-window.onload = function () {
+
+window.addEventListener("load", initialize, true); 
+
+function initialize() {
     passForm = document.getElementById("password-change")
     passForm.addEventListener("submit", onSubmitData)
     document.getElementById("new-pass1").addEventListener("change", validateNewPass1)
     document.getElementById("new-pass2").addEventListener("change", validateNewPass2)
-}
+} 
 
 validateNewPass1 = function () {
     let password = document.getElementById("new-pass1").value

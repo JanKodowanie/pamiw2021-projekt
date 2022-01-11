@@ -1,11 +1,13 @@
 var errorMsg = null
 var loginForm = null
 
-window.onload = function () {
+window.addEventListener("load", initialize, true); 
+
+function initialize() {
     loginForm = document.getElementById("loginform")
     loginForm.addEventListener("submit", onSubmitData)
     errorMsg = document.getElementById("signin-error")
-}
+} 
 
 onSubmitData = async function (e) {
     e.preventDefault()

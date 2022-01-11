@@ -19,6 +19,7 @@ h1 {
     display: flex;
     margin-bottom: calc(5px + 1%);
     color: rgb(255, 255, 255);
+    min-height: calc(200px + 0.4vh);
 }
 
 .post-data {
@@ -38,7 +39,7 @@ h1 {
 }
 
 .post-text {
-    margin: 1% 0;
+    margin:  calc(15px + 0.8vw) 0;
     font-size: calc(15px + 0.2vw);
     word-wrap: break-word;
     text-align: justify;
@@ -51,6 +52,7 @@ h1 {
 
 .post-date {
     font-size: calc(15px + 0.2vw);
+    margin-bottom: calc(5px + 0.2vw);
 }
 
 .post-data span {
@@ -78,9 +80,10 @@ h1 {
 }
 
 .button1 {
-    font-size: calc(15px + 0.2vw);
+    font-size: calc(10px + 0.5vh);
+    margin-right: calc(5px + 0.2vw);
     border: none;
-    padding: calc(5px + 2%);
+    padding: calc(5px + 0.4vh);
     color: white;
     text-decoration: none;
     background-color: crimson;
@@ -264,6 +267,45 @@ footer {
 
 .error-mes {
     visibility: visible;
+}
+
+.profile {
+    display: flex;
+    margin: calc(20px + 2%) 0;
+    color: rgb(255, 255, 255);
+    min-height: calc(300px + 0.4vh);
+}
+
+.profile-data {
+    font-size: calc(8px + 0.5vw);
+    padding: calc(10px + 1%);
+    background-color: rgb(21, 21, 21);
+    border: thin solid;
+    border-color: #b5dcff;
+    width: calc(300px + 50%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-bio {
+    margin:  calc(15px + 0.8vw) 0;
+    font-size: calc(15px + 0.2vw);
+    word-wrap: break-word;
+    text-align: justify;
+    white-space: pre-wrap;
+}
+
+.profile-date-created {
+    font-size: calc(15px + 0.2vw);
+}
+
+.profile-gender {
+    font-size: calc(15px + 0.2vw);
+}
+
+.profile-data span {
+    color: #b5dcff;
+    font-weight: 700;
 }
 
 /* .new-note-view {

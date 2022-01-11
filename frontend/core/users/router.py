@@ -1,10 +1,12 @@
 import httpx
 import settings
-from fastapi import APIRouter, HTTPException, File, UploadFile, Form, Request, status, Response, Cookie
+from fastapi import APIRouter, HTTPException, Form, Request, status, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from common.responses import *
 from .schemas import *
+from .auth import *
+from core.blog.schemas import PostListSchema
 
 
 router = APIRouter(
@@ -136,3 +138,50 @@ async def reset_password(
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
     
     return OkResponse(detail=response_data['detail'])
+
+
+@router.delete(
+    "/account/{id}", 
+    response_model=OkResponse,
+    status_code=status.HTTP_200_OK
+)
+async def delete_account(
+    id: UUID,
+    response: Response,
+    user: Optional[UserSession] = Depends(get_user_session)
+):
+    if user and user.id == id:
+        request_url = "user-management/user"
+    elif user and user.role == UserRole.MODERATOR:
+        request_url = f"user-management/user/{id}"
+    else:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Nie możesz wykonać tej operacji.")
+    
+    async with httpx.AsyncClient() as client:
+        headers = {'authorization': user.token}
+        await client.delete(f'{settings.BACKEND_URL}{request_url}', headers=headers)
+    
+    response.delete_cookie('token')
+    response.delete_cookie('user_data')
+    return OkResponse(detail="Konto zostało usunięte.")
+
+
+@router.get("/profile/{id}", response_class=HTMLResponse)
+async def get_user_profile(
+    id: UUID,
+    request: Request,
+    user: Optional[UserSession] = Depends(get_user_session)
+):
+    async with httpx.AsyncClient() as client:
+        profile_response = await client.get(f'{settings.BACKEND_URL}user-management/user/{id}')
+        profile = profile_response.json()
+        if profile_response.status_code == status.HTTP_404_NOT_FOUND:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail=profile['detail'])
+
+        profile = UserGetProfileSchema(**profile)
+
+        response = await client.get(f'{settings.BACKEND_URL}blog/posts/{id}')
+        posts = response.json()
+        posts = PostListSchema(posts=posts)
+         
+    return templates.TemplateResponse("user_profile.html", {"request": request, "user": user, "posts": posts.dict(), "profile": profile})

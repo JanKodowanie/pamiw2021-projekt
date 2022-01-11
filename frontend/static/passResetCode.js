@@ -1,10 +1,12 @@
 var resetForm = null
 
 
-window.onload = function () {
+window.addEventListener("load", initialize, true); 
+
+function initialize() {
     resetForm = document.getElementById("pass-reset-form")
     resetForm.addEventListener("submit", onSubmitData)
-}
+} 
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

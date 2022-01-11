@@ -14,7 +14,9 @@ var fieldState = {
     "gender": false
 }
 
-window.onload = function () {
+window.addEventListener("load", initialize, true); 
+
+function initialize() {
     regForm = document.getElementById("regform")
     regForm.addEventListener("submit", onSubmitData)
 
@@ -22,7 +24,8 @@ window.onload = function () {
     document.getElementById("password").addEventListener("change", validatePassword)
     document.getElementById("password2").addEventListener("change", validatePassword2)
     document.getElementById("gender").addEventListener("change", validateGender)
-}
+} 
+
 
 validateUsername = function () {
     var username = document.getElementById("username").value

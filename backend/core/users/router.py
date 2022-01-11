@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from .schemas import *
 from .exceptions import *
@@ -77,7 +77,7 @@ async def delete_current_user(
     user: User = Depends(AuthHandler.get_user_from_token)
 ):
     await service.delete(user)
-    return 
+    return Response(status_code=status.HTTP_204_NO_CONTENT) 
 
 
 @router.get(
@@ -123,9 +123,10 @@ async def delete_user_as_moderator(
     try:
         user_to_delete = await service.get_by_id(id)
     except AccountNotFound:
-        return
+        return Response(status_code=status.HTTP_204_NO_CONTENT) 
     
     service.delete(user_to_delete, False)
+    return Response(status_code=status.HTTP_204_NO_CONTENT) 
 
 
 @router.post(

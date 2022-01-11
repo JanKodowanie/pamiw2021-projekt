@@ -59,7 +59,8 @@ async def get_post_details(
 
 @router.delete(
     '/post/{id}',
-    status_code=status.HTTP_204_NO_CONTENT
+    status_code=status.HTTP_200_OK,
+    response_model = OkResponse
 )
 async def delete_post(
     id: int, 
@@ -69,14 +70,15 @@ async def delete_post(
     try:
         instance = await service.get(id)
     except PostNotFound:
-        return
+        return NotFoundResponse(detail="Post o podanym id nie istnieje.")
     
     if not IsBlogUser.has_object_permission(instance, user) \
                 and not IsModerator.has_permission(user):
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail=ForbiddenResponse().detail)
 
     await service.delete(instance)
-    
+    return OkResponse(detail="Post został usunięty.")
+
     
 @router.patch(
     '/post/{id}',
