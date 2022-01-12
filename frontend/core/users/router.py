@@ -39,7 +39,7 @@ async def login_user(
 ):
     login_data = LoginRequest(username=email, password=password)
     async with httpx.AsyncClient() as client:
-        backend_response = await client.post(f'{settings.BACKEND_URL}user-management/login', data=login_data.dict())
+        backend_response = await client.post(f'{settings.BACKEND_URL}/user-management/login', data=login_data.dict())
         response_data = backend_response.json()
         if backend_response.status_code == status.HTTP_401_UNAUTHORIZED:
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail=response_data['detail'])
@@ -79,7 +79,7 @@ async def register_user(
 ):
     data = UserCreateSchema(username=username, email=email, password=password, gender=gender)
     async with httpx.AsyncClient() as client:
-        response = await client.post(f'{settings.BACKEND_URL}user-management/user', json=data.dict())
+        response = await client.post(f'{settings.BACKEND_URL}/user-management/user', json=data.dict())
         response_data = response.json()
         if response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
@@ -107,7 +107,7 @@ async def get_password_reset_code(
         return OkResponse(detail=msg)
         
     async with httpx.AsyncClient() as client:
-        await client.post(f'{settings.BACKEND_URL}user-management/password-reset-code', json=data.dict())
+        await client.post(f'{settings.BACKEND_URL}/user-management/password-reset-code', json=data.dict())
         
     return OkResponse(detail=msg)
 
@@ -132,7 +132,7 @@ async def reset_password(
     data = PasswordResetSchema(code=code, password=new_pass1)
         
     async with httpx.AsyncClient() as client:
-        response = await client.patch(f'{settings.BACKEND_URL}user-management/user/reset-password', json=data.dict())
+        response = await client.patch(f'{settings.BACKEND_URL}/user-management/user/reset-password', json=data.dict())
         response_data = response.json()
         if response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
             raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, detail=response_data['detail'])
@@ -151,9 +151,9 @@ async def delete_account(
     user: Optional[UserSession] = Depends(get_user_session)
 ):
     if user and user.id == id:
-        request_url = "user-management/user"
+        request_url = "/user-management/user"
     elif user and user.role == UserRole.MODERATOR:
-        request_url = f"user-management/user/{id}"
+        request_url = f"/user-management/user/{id}"
     else:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Nie możesz wykonać tej operacji.")
     
@@ -173,14 +173,14 @@ async def get_user_profile(
     user: Optional[UserSession] = Depends(get_user_session)
 ):
     async with httpx.AsyncClient() as client:
-        profile_response = await client.get(f'{settings.BACKEND_URL}user-management/user/{id}')
+        profile_response = await client.get(f'{settings.BACKEND_URL}/user-management/user/{id}')
         profile = profile_response.json()
         if profile_response.status_code == status.HTTP_404_NOT_FOUND:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail=profile['detail'])
 
         profile = UserGetProfileSchema(**profile)
 
-        response = await client.get(f'{settings.BACKEND_URL}blog/posts/{id}')
+        response = await client.get(f'{settings.BACKEND_URL}/blog/posts/{id}')
         posts = response.json()
         posts = PostListSchema(posts=posts)
          

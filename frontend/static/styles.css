@@ -23,12 +23,11 @@ h1 {
 }
 
 .new-post-form {
-    /* font-size: calc(8px + 0.5vw); */
     background-color: rgb(47, 47, 47);
     border: none;
     margin-left: auto;
     margin-right: auto;
-    width: calc(300px + 50%);
+    width: calc(300px + 20%);
 }
 
 .new-post-form textarea {
@@ -66,9 +65,24 @@ h1 {
     background-color: rgb(21, 21, 21);
     border: thin solid;
     border-color: rgb(127, 127, 127);
-    width: calc(300px + 50%);
+    width: calc(300px + 20%);
     margin-left: auto;
     margin-right: auto;
+}
+
+.post-image {
+    width: 80%;
+    height: calc(100px + 10vw);
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom:  calc(15px + 0.8vw);
+}
+
+.post-image img {
+    height: 100%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
 }
 
 .post-creator {
@@ -345,74 +359,3 @@ footer {
     color: #b5dcff;
     font-weight: 700;
 }
-
-/* .new-note-view {
-    margin: 5% 0%;
-}
-
-.new-note-form-content {
-    list-style: none;
-    padding: 0;
-}
-
-.new-note-form-content li{
-    margin: 0.5vw 0;
-}
-
-.new-note-form-content li input[type=text] {
-    width: 100%;
-    height: 2vh;
-}
-
-.new-note-form-content li input[type=password] {
-    width: 30%;
-    height: 2vh;
-}
-
-.new-note-form-content li input[type=email] {
-    width: 30%;
-    height: 2vh;
-}
-
-.new-note-form-content li textarea {
-    width: 100%;
-    height: 20vh;
-    resize: none;
-}
-
-.new-note-form-content li button[type=submit] {
-    width: 10%;
-    margin-left: 45%;
-}
-
-.receivers-selection {
-    display: flex;
-    width: 100%;
-}
-
-.receivers-selection div {
-    margin-right: 2%;
-}
-
-.receivers-list {
-    display: flex;
-    width: 80%;
-    visibility: hidden;
-}
-
-.receivers-list * {
-    margin: 0;
-    margin-right: 7%;
-}
-
-.receivers-list select{
-    width: 15%;
-}
-
-.receivers-list button{
-    width: 10%;
-}
-
-.receivers-list p{
-    width: 60%;
-} */

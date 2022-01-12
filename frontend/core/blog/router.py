@@ -29,7 +29,7 @@ async def get_blog_page(
     user: Optional[UserSession] = Depends(get_user_session)
 ):
     async with httpx.AsyncClient() as client:
-        response = await client.get(f'{settings.BACKEND_URL}blog/posts')
+        response = await client.get(f'{settings.BACKEND_URL}/blog/posts')
         data = response.json()
         posts = PostListSchema(posts=data)
          
@@ -43,7 +43,7 @@ async def get_tag_view(
     user: Optional[UserSession] = Depends(get_user_session)
 ):
     async with httpx.AsyncClient() as client:
-        response = await client.get(f'{settings.BACKEND_URL}blog/tag/{name}')
+        response = await client.get(f'{settings.BACKEND_URL}/blog/tag/{name}')
         if response.status_code == status.HTTP_200_OK:
             data = response.json()
         else:
@@ -76,7 +76,7 @@ async def create_post(
     
     async with httpx.AsyncClient() as client:
         headers = {'authorization': user.token}
-        response = await client.post(f'{settings.BACKEND_URL}blog/post', 
+        response = await client.post(f'{settings.BACKEND_URL}/blog/post', 
                                      data=data, files=files, headers=headers)
         response_data = response.json()
         settings.logger.info(response_data)
@@ -100,7 +100,7 @@ async def delete_post(
     
     async with httpx.AsyncClient() as client:
         headers = {'authorization': user.token}
-        response = await client.delete(f'{settings.BACKEND_URL}blog/post/{id}', headers=headers)
+        response = await client.delete(f'{settings.BACKEND_URL}/blog/post/{id}', headers=headers)
         if response.status_code != status.HTTP_200_OK:
             raise HTTPException(response.status_code, detail="Nie możesz skasować tego posta.")
     
