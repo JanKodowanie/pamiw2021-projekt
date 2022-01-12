@@ -40,20 +40,19 @@ Tortoise.init_models(MODEL_PATHS, 'models')
 
 # auth settings
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALGORITHM = os.getenv('ALGORITHM')
+ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 600
 
 
 # web connection settings
 FRONTEND_URL = os.getenv('FRONTEND_URL')
-BACKEND_DOMAIN = os.getenv('BACKEND_DOMAIN')
 CORS_ALLOWED_ORIGINS = [
     FRONTEND_URL
 ]
 
 CORS_ALLOWED_METHODS = ["*"]
 CORS_ALLOWED_HEADERS = ["*"]
-ALLOWED_HOSTS = [BACKEND_DOMAIN, "localhost"]
+ALLOWED_HOSTS = ["*"]
 
 
 # media settings
@@ -64,6 +63,5 @@ MEDIA_ROOT = '/media'
 # sendgrid settings
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 MAIN_EMAIL_TEMPLATE = os.getenv('MAIN_EMAIL_TEMPLATE')
-
-NO_REPLY_EMAIL = "no-reply@microsociety.pl"
+NO_REPLY_EMAIL = os.getenv('NO_REPLY_EMAIL')
 PASS_RESET_ENDPOINT = "account/reset-password"

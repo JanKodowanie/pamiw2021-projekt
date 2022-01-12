@@ -1,5 +1,5 @@
 import pydantic
-from settings import BACKEND_URL
+from settings import MEDIA_URL
 from fastapi import UploadFile
 from core.users.schemas import UserGetListSchema
 from typing import Optional, List
@@ -44,6 +44,6 @@ class PostListSchema(pydantic.BaseModel):
         for post in result:
             post['date_created'] = DateConverter.convert_str_to_datetime(post['date_created'])
             if post['picture_url']:
-                post['picture_url'] = BACKEND_URL + post['picture_url']
+                post['picture_url'] = MEDIA_URL + post['picture_url']
             
         return result

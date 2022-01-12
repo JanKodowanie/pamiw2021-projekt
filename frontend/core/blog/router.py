@@ -79,7 +79,6 @@ async def create_post(
         response = await client.post(f'{settings.BACKEND_URL}/blog/post', 
                                      data=data, files=files, headers=headers)
         response_data = response.json()
-        settings.logger.info(response_data)
         if response.status_code != status.HTTP_201_CREATED:
             raise HTTPException(response.status_code, detail="Nie udało się utworzyć posta.")
         
