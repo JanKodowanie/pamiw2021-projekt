@@ -1,9 +1,11 @@
-
+var post_form = null
 window.addEventListener("load", initialize, true); 
 
 function initialize() {
     let edit_buttons = document.getElementsByClassName("edit-post-button");
     let delete_buttons = document.getElementsByClassName("delete-post-button");
+    post_form = document.getElementById("new-post-form")
+    post_form.addEventListener("submit", onSubmitPostData)
     
     for (let i = 0; i < edit_buttons.length; i++) {
         edit_buttons[i].addEventListener('click', onEditButtonClicked);
@@ -30,6 +32,20 @@ onDeleteButtonClicked = async function (e) {
             alert(response_data.detail)
         }
     } else {
-        form.parentNode.remove()
+        form.parentNode.parentNode.remove()
+    }
+}
+
+onSubmitPostData = async function (e) {
+    e.preventDefault()
+    
+    let data = new FormData(post_form)
+    let response = await fetch('/post', {method: 'POST', body: data})
+    if (response.status !== 201) {
+        response_data = await response.json()
+        console.log(response_data)
+        alert(response_data.detail)
+    } else {
+        window.location.reload()
     }
 }

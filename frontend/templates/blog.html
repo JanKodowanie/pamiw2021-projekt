@@ -11,6 +11,24 @@
     <div>
         <h2 class="blog-header3">Oto najnowsze posty:</h2>
         <div class="posts-view">
+            {% if user %}
+                <div class="new-post">
+                    <form class="new-post-form" id="new-post-form">
+                        <ul>
+                            <li>
+                                <textarea placeholder="Wpisz treść tutaj..." id="new-post-content" name="content" form="new-post-form" required></textarea>
+                            </li>
+                            <li>
+                                <label for="picture">Zdjęcie: </label>
+                                <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg">
+                            </li>
+                            <li>
+                                <button type="submit" class="button1 create-post-button">Dodaj wpis</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>    
+            {% endif %}
             {% for post in posts %}
                 <div class="post">
                     <div class="post-data">

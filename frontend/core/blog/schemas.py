@@ -1,4 +1,5 @@
 import pydantic
+from fastapi import UploadFile
 from core.users.schemas import UserGetListSchema
 from typing import Optional, List
 from uuid import UUID
@@ -21,8 +22,9 @@ class LikeGetSchema(pydantic.BaseModel):
 
 class PostCreateSchema(pydantic.BaseModel):
     content: pydantic.constr(strip_whitespace=True, min_length=1, max_length=500)
+    picture: Optional[UploadFile]
+    
      
-  
 class PostGetSchema(pydantic.BaseModel):
     id: int
     creator: UserGetListSchema

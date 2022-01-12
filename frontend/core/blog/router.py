@@ -53,6 +53,39 @@ async def get_tag_view(
     return templates.TemplateResponse("blog_tag.html", {"request": request, "tag": name, "user": user, "posts": posts.dict()})
 
 
+@router.post(
+    "/post", 
+    response_model=OkResponse,
+    status_code=status.HTTP_201_CREATED
+)
+async def create_post(
+    content: str = Form(...),
+    picture: UploadFile = File(None),
+    user: Optional[UserSession] = Depends(get_user_session)
+):
+    if not user: 
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Nie możesz wykonać tej operacji.")
+    
+    data = {
+        "content": content
+    }
+    
+    files = {
+        "picture": (picture.filename, await picture.read())
+    }
+    
+    async with httpx.AsyncClient() as client:
+        headers = {'authorization': user.token}
+        response = await client.post(f'{settings.BACKEND_URL}blog/post', 
+                                     data=data, files=files, headers=headers)
+        response_data = response.json()
+        settings.logger.info(response_data)
+        if response.status_code != status.HTTP_201_CREATED:
+            raise HTTPException(response.status_code, detail="Nie udało się utworzyć posta.")
+        
+    return OkResponse(detail="Post został utworzony.")
+
+
 @router.delete(
     "/post/{id}", 
     response_model=OkResponse,
